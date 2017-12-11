@@ -10,7 +10,12 @@ typedef struct noeud
 }NOEUD;
 
 typedef NOEUD* PROGRAMME;
-
+/*
+newNoeud permet de créer un nouveau noeud
+@param instruction
+@param parametre
+@param suivant pointeur vers autre noeud
+**/
 NOEUD newNoeud(char* instruction, int parametre, NOEUD* suivant)
 {
     NOEUD noeud;
@@ -21,7 +26,10 @@ NOEUD newNoeud(char* instruction, int parametre, NOEUD* suivant)
 }
 
 
-
+/*
+newProgramme permet d'initialiser un programme
+@param noeud le premier noeud
+**/
 PROGRAMME newProgramme(NOEUD noeud)
 {
     PROGRAMME prog = (PROGRAMME)malloc(sizeof(NOEUD));
@@ -31,6 +39,11 @@ PROGRAMME newProgramme(NOEUD noeud)
     return prog;
 }
 
+/*
+ajoutNoeud permet d'ajouter tableau de noeuds à la fin d'un programme
+@param pprog pointeur vers programme
+@param noeud un tableau de noeuds
+**/
 PROGRAMME ajoutNoeud(PROGRAMME* pprog, NOEUD* noeud)
 {
     if(*pprog==NULL)
@@ -48,7 +61,12 @@ PROGRAMME ajoutNoeud(PROGRAMME* pprog, NOEUD* noeud)
     }
 
 }
-
+/*
+newNoeudRepeat permet de créer un noeud REPEAT (suite de noeuds)
+@param instruction 
+@param parametre
+@param tabNoeud tableau de noeuds 
+**/
 PROGRAMME newNoeudRepeat(char* instruction, int parametre, NOEUD* tabNoeud){
     if(strcmp(instruction,"REPEAT")!=0)
     {
@@ -71,6 +89,11 @@ PROGRAMME newNoeudRepeat(char* instruction, int parametre, NOEUD* tabNoeud){
     return prog;
 }
 
+/*
+ajoutProgramme permet de fusionner le programme b à la suite du programme a
+@param pproga pointeur vers programme a
+@param progb programme b
+**/
 PROGRAMME ajoutProgramme(PROGRAMME* pproga, PROGRAMME progb)
 {
     if(*pproga==NULL || progb==NULL)
@@ -89,7 +112,10 @@ PROGRAMME ajoutProgramme(PROGRAMME* pproga, PROGRAMME progb)
         return *pproga;
     }
 }
-
+/*
+afficheProg affiche l'instruction et le parametre d'un noeud dans une programme
+@param prog un programme
+**/
 void afficheProg(PROGRAMME prog)
 {
     if(prog != NULL)
@@ -105,13 +131,30 @@ void afficheProg(PROGRAMME prog)
 
 int main() 
 {
+    //création de noeuds
     NOEUD noeuda = newNoeud("FORWARD",15,NULL);
     NOEUD noeudb = newNoeud("BACKWARD",50,NULL);
+    
+    //création du programme
     PROGRAMME prog = newProgramme(noeuda);
+    
+    //ajout noeud
     prog = ajoutNoeud(&prog, &noeudb);
+    
+    //affichage
     afficheProg(prog);
+    
+    //création noeud REPEAT
     PROGRAMME repeat = newNoeudRepeat("REPEAT",2,prog);
+    
+    //ajout noeud REPEAT
     prog=ajoutProgramme(&prog,repeat);
+    
+    //affiche
+    afficheProg(prog);
+    
+    //free malloc
     free(prog);
+
     return 1;
 }
