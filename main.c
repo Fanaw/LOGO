@@ -2,8 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef struct noeud
-{
+typedef struct noeud{
     char* instruction;
     int parametre;
     struct noeud* suivant;
@@ -16,8 +15,7 @@ newNoeud permet de créer un nouveau noeud
 @param parametre
 @param suivant pointeur vers autre noeud
 **/
-NOEUD newNoeud(char* instruction, int parametre, NOEUD* suivant)
-{
+NOEUD newNoeud(char* instruction, int parametre, NOEUD* suivant){
     NOEUD noeud;
     noeud.instruction=instruction;
     noeud.parametre=parametre;
@@ -30,8 +28,7 @@ NOEUD newNoeud(char* instruction, int parametre, NOEUD* suivant)
 newProgramme permet d'initialiser un programme
 @param noeud le premier noeud
 **/
-PROGRAMME newProgramme(NOEUD noeud)
-{
+PROGRAMME newProgramme(NOEUD noeud){
     PROGRAMME prog = (PROGRAMME)malloc(sizeof(NOEUD));
     prog->instruction=noeud.instruction;
     prog->parametre=noeud.parametre;
@@ -44,8 +41,7 @@ ajoutNoeud permet d'ajouter tableau de noeuds à la fin d'un programme
 @param pprog pointeur vers programme
 @param noeud un tableau de noeuds
 **/
-PROGRAMME ajoutNoeud(PROGRAMME* pprog, NOEUD* noeud)
-{
+PROGRAMME ajoutNoeud(PROGRAMME* pprog, NOEUD* noeud){
     if(*pprog==NULL)
     {
         return NULL;
@@ -94,8 +90,7 @@ ajoutProgramme permet de fusionner le programme b à la suite du programme a
 @param pproga pointeur vers programme a
 @param progb programme b
 **/
-PROGRAMME ajoutProgramme(PROGRAMME* pproga, PROGRAMME progb)
-{
+PROGRAMME ajoutProgramme(PROGRAMME* pproga, PROGRAMME progb){
     if(*pproga==NULL || progb==NULL)
     {
         perror("Erreur fusion programme");
@@ -116,8 +111,7 @@ PROGRAMME ajoutProgramme(PROGRAMME* pproga, PROGRAMME progb)
 afficheProg affiche l'instruction et le parametre d'un noeud dans une programme
 @param prog un programme
 **/
-void afficheProg(PROGRAMME prog)
-{
+void afficheProg(PROGRAMME prog){
     if(prog != NULL)
     {
         printf("%s ",prog->instruction);
@@ -129,8 +123,7 @@ void afficheProg(PROGRAMME prog)
     }
 }
 
-int main() 
-{
+int main() {
     //création de noeuds
     NOEUD noeuda = newNoeud("FORWARD",15,NULL);
     NOEUD noeudb = newNoeud("BACKWARD",50,NULL);
