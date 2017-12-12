@@ -5,6 +5,7 @@
 typedef struct noeud{
     char* instruction;
     int parametre;
+    struct noeud* sousprog;
     struct noeud* suivant;
 }NOEUD;
 
@@ -15,10 +16,11 @@ newNoeud permet de créer un nouveau noeud
 @param parametre
 @param suivant pointeur vers autre noeud
 **/
-NOEUD newNoeud(char* instruction, int parametre, NOEUD* suivant){
+NOEUD newNoeud(char* instruction, int parametre,NOEUD* sousprog, NOEUD* suivant){
     NOEUD noeud;
     noeud.instruction=instruction;
     noeud.parametre=parametre;
+    noeud.sousprog=sousprog;
     noeud.suivant=suivant;
     return noeud;
 }
